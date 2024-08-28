@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
+
 
 
 # Load the data
@@ -31,3 +33,24 @@ lin_reg_model.fit(X, y) # fit the model to the data
 #Make a prediction for Argentina 
 X_new = [[23000]] # Argentina's GDP per capita
 print(lin_reg_model.predict(X_new)) # Argentina's predicted satisfaction rate
+
+
+
+# Cómo aplicar K-Nearest Neighbors en lugar de regresión lineal:
+
+# Select a K-Nearest Neighbors model
+knn_model = KNeighborsRegressor(n_neighbors=3)  # Aquí se elige k=3, pero puedes ajustar este valor
+# Train the model
+knn_model.fit(X, y)
+# Make a prediction for Argentina
+print(knn_model.predict(X_new))  # Argentina's predicted satisfaction rate
+
+
+# Visualize the models
+plt.scatter(X, y)
+plt.plot(X, lin_reg_model.predict(X), color='red', label='Linear Regression')
+plt.plot(X, knn_model.predict(X), color='green', label='K-Nearest Neighbors')
+plt.xlabel('GDP per capita')
+plt.ylabel('Satisfaction Rate')
+plt.legend()
+plt.show()
